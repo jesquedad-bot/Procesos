@@ -124,248 +124,243 @@
 const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzDIN91r2Sv55waMzEefdVgZwABt_LZ0SL6Io99N0RSQ_hONY2Etf6Plw9vmM36PLLZ/exec';
 
 const bank = [
-  // UNIDAD I — Tendencias actuales en CEP
   {
     unit:"Unidad I — Fundamentos del CEP",
-    text:"¿Cuál es el objetivo principal de los gráficos de control en el Control Estadístico de Procesos?",
-    correctText:"Monitorear la variabilidad de un proceso a lo largo del tiempo para detectar causas especiales de variación",
+    text:"¿Cuál es el objetivo principal de los gráficos de control en el CEP?",
+    correctText:"Distinguir entre variación natural del proceso y variación causada por factores externos anormales",
     options:[
-      "Monitorear la variabilidad de un proceso a lo largo del tiempo para detectar causas especiales de variación",
-      "Calcular el costo total de producción de un lote de alimentos",
-      "Determinar el precio de venta de un producto agroalimentario",
-      "Establecer los turnos de trabajo del personal de planta"
+      "Distinguir entre variación natural del proceso y variación causada por factores externos anormales",
+      "Calcular el precio óptimo de venta de cada lote de producción terminado",
+      "Registrar el ausentismo del personal durante los turnos de producción",
+      "Determinar cuántos proveedores de materia prima debe tener la empresa"
     ],
     explanation:"Los gráficos de control permiten monitorear la variabilidad de un proceso en el tiempo, distinguiendo entre variación natural (causas comunes) y variación anormal (causas especiales)."
   },
   {
     unit:"Unidad I — Fundamentos del CEP",
     text:"¿Qué se entiende por variabilidad en un proceso productivo?",
-    correctText:"Las diferencias inevitables que existen entre unidades producidas bajo las mismas condiciones operativas",
+    correctText:"Las diferencias naturales entre unidades producidas bajo condiciones aparentemente iguales",
     options:[
-      "El número de empleados que trabajan en el turno de producción",
-      "Las diferencias inevitables que existen entre unidades producidas bajo las mismas condiciones operativas",
-      "El tiempo total que tarda un producto en llegar al mercado",
-      "La diferencia entre el precio de compra y el precio de venta de un producto"
+      "El número total de turnos de trabajo programados en la semana",
+      "Las diferencias naturales entre unidades producidas bajo condiciones aparentemente iguales",
+      "La distancia entre la planta de producción y el centro de distribución",
+      "El porcentaje de utilidad neta obtenida al cierre del periodo fiscal"
     ],
     explanation:"La variabilidad se refiere a las diferencias naturales entre unidades producidas bajo las mismas condiciones; entenderla y controlarla es el fundamento del CEP."
   },
   {
     unit:"Unidad I — Industria 4.0 y CEP",
-    text:"¿Cuál de los siguientes es un componente clave de la Industria 4.0 aplicable al CEP?",
-    correctText:"Internet de las Cosas (IoT), que permite la recolección de datos en tiempo real desde sensores en línea de producción",
+    text:"¿Cómo contribuye la Industria 4.0 al Control Estadístico de Procesos?",
+    correctText:"Integra sensores, IoT y análisis de datos en tiempo real para monitorear procesos de forma continua y automatizada",
     options:[
-      "Uso exclusivo de registros en papel para documentar la producción",
-      "Reducción del número de trabajadores en planta sin sustitución tecnológica",
-      "Internet de las Cosas (IoT), que permite la recolección de datos en tiempo real desde sensores en línea de producción",
-      "Eliminación de los procesos de inspección de calidad en la industria"
+      "Elimina la necesidad de capacitar al personal operativo en técnicas de calidad",
+      "Integra sensores, IoT y análisis de datos en tiempo real para monitorear procesos de forma continua y automatizada",
+      "Reduce el catálogo de productos para simplificar la línea de producción",
+      "Sustituye todos los sistemas de gestión de calidad previamente certificados"
     ],
-    explanation:"La Industria 4.0 incorpora tecnologías como IoT, inteligencia artificial y Big Data que permiten recolectar y analizar datos en tiempo real, transformando la manera en que se implementa el CEP."
+    explanation:"La Industria 4.0 incorpora tecnologías como IoT, inteligencia artificial y Big Data que permiten recolectar y analizar datos en tiempo real, transformando la implementación del CEP."
   },
   {
     unit:"Unidad I — Big Data en procesos agroalimentarios",
-    text:"¿Qué ventaja ofrece el análisis predictivo basado en Big Data en la industria agroalimentaria?",
-    correctText:"Anticipar fallas o desviaciones del proceso antes de que afecten la calidad del producto",
+    text:"¿Qué aporta el análisis predictivo con Big Data en la agroindustria?",
+    correctText:"Detectar patrones en datos históricos para anticipar desviaciones antes de que afecten la calidad",
     options:[
-      "Eliminar la necesidad de realizar pruebas de laboratorio en los productos",
-      "Anticipar fallas o desviaciones del proceso antes de que afecten la calidad del producto",
-      "Reducir el número de empleados en los departamentos de calidad",
-      "Reemplazar completamente al personal de supervisión de planta"
+      "Diseñar nuevas etiquetas nutricionales para productos en fase de lanzamiento",
+      "Calcular automáticamente el salario variable de los operadores de producción",
+      "Detectar patrones en datos históricos para anticipar desviaciones antes de que afecten la calidad",
+      "Establecer los precios de exportación según el tipo de cambio diario"
     ],
     explanation:"El análisis predictivo con Big Data permite identificar patrones y anticipar desviaciones antes de que ocurran, mejorando la eficiencia y reduciendo desperdicios en procesos agroalimentarios."
   },
   {
     unit:"Unidad I — Herramientas digitales en CEP",
-    text:"¿Para qué se utiliza un software especializado de CEP como Minitab, R o SPSS en la industria?",
-    correctText:"Para analizar datos de proceso, construir gráficos de control y realizar pruebas estadísticas de forma eficiente",
+    text:"¿Qué función cumple un software estadístico como R, Minitab o SPSS en el CEP?",
+    correctText:"Automatizar el análisis de datos, construcción de gráficos de control y pruebas de hipótesis estadísticas",
     options:[
-      "Para diseñar el empaque visual de los productos agroalimentarios",
-      "Para calcular el salario del personal de producción",
-      "Para analizar datos de proceso, construir gráficos de control y realizar pruebas estadísticas de forma eficiente",
-      "Para gestionar las compras de materia prima del almacén"
+      "Automatizar el análisis de datos, construcción de gráficos de control y pruebas de hipótesis estadísticas",
+      "Gestionar los pedidos de clientes y el inventario de producto terminado",
+      "Diseñar la distribución física de las áreas dentro de la planta productiva",
+      "Calcular las rutas de transporte más eficientes para la distribución"
     ],
     explanation:"Los paquetes estadísticos especializados automatizan el análisis de datos, construcción de gráficos de control y pruebas estadísticas, haciendo más eficiente la implementación del CEP."
   },
-
-  // UNIDAD II — Modelado y análisis de datos
   {
     unit:"Unidad II — Técnicas de muestreo",
-    text:"¿Cuál es la diferencia entre muestreo aleatorio simple y muestreo estratificado?",
-    correctText:"El muestreo aleatorio selecciona unidades al azar de toda la población, mientras que el estratificado divide la población en grupos homogéneos y muestrea cada uno",
+    text:"¿En qué se diferencia el muestreo aleatorio simple del muestreo estratificado?",
+    correctText:"El aleatorio da igual probabilidad a todas las unidades; el estratificado agrupa la población en estratos y muestrea cada uno por separado",
     options:[
-      "El muestreo aleatorio es más costoso que el estratificado en todos los casos",
-      "El muestreo aleatorio selecciona unidades al azar de toda la población, mientras que el estratificado divide la población en grupos homogéneos y muestrea cada uno",
-      "El muestreo estratificado solo se aplica en estudios de mercado, no en producción",
-      "Ambos métodos producen exactamente los mismos resultados siempre"
+      "El aleatorio siempre produce mayor error que el estratificado en cualquier escenario",
+      "El estratificado solo puede aplicarse cuando la población es menor a 100 unidades",
+      "El aleatorio da igual probabilidad a todas las unidades; el estratificado agrupa la población en estratos y muestrea cada uno por separado",
+      "Ambos métodos son equivalentes y producen los mismos resultados en la práctica"
     ],
     explanation:"El muestreo aleatorio simple da igual probabilidad a todas las unidades, mientras que el estratificado asegura representatividad de subgrupos importantes dentro de la población."
   },
   {
     unit:"Unidad II — Técnicas de muestreo",
-    text:"¿Qué es el tamaño de muestra y por qué es importante en el control estadístico?",
-    correctText:"Es la cantidad de unidades seleccionadas para el análisis; un tamaño adecuado garantiza resultados representativos y estadísticamente válidos",
+    text:"¿Por qué es importante definir correctamente el tamaño de muestra en el CEP?",
+    correctText:"Porque un tamaño inadecuado puede producir estimaciones imprecisas y llevar a decisiones incorrectas sobre el proceso",
     options:[
-      "Es el peso total del lote de producción analizado en el laboratorio",
-      "Es el número de trabajadores que participan en el proceso de inspección",
-      "Es la cantidad de unidades seleccionadas para el análisis; un tamaño adecuado garantiza resultados representativos y estadísticamente válidos",
-      "Es el tiempo que tarda en completarse un ciclo de producción"
+      "Porque un tamaño inadecuado puede producir estimaciones imprecisas y llevar a decisiones incorrectas sobre el proceso",
+      "Porque el tamaño de muestra determina el salario del inspector de calidad",
+      "Porque la legislación alimentaria obliga a muestrear el 100% de la producción",
+      "Porque el cliente final exige conocer el número exacto de muestras analizadas"
     ],
     explanation:"El tamaño de muestra determina la precisión y confiabilidad de las estimaciones estadísticas; un tamaño inadecuado puede llevar a conclusiones erróneas sobre el estado del proceso."
   },
   {
     unit:"Unidad II — Enfoques estadísticos en agroindustria",
-    text:"¿Qué es la distribución normal y cuál es su importancia en el CEP?",
-    correctText:"Es una distribución de probabilidad simétrica en forma de campana; muchos procesos naturales la siguen, lo que fundamenta el uso de gráficos de control",
+    text:"¿Por qué la distribución normal es fundamental en el Control Estadístico de Procesos?",
+    correctText:"Porque muchos procesos productivos siguen ese comportamiento, lo que permite establecer límites de control estadísticamente válidos",
     options:[
-      "Es una distribución que solo aplica en datos financieros y económicos",
-      "Es un gráfico de barras usado para comparar productos distintos",
-      "Es una distribución de probabilidad simétrica en forma de campana; muchos procesos naturales la siguen, lo que fundamenta el uso de gráficos de control",
-      "Es el promedio de las mediciones de un proceso durante una semana"
+      "Porque es la única distribución estadística reconocida por las normas ISO de calidad",
+      "Porque fue diseñada específicamente para analizar datos de la industria alimentaria",
+      "Porque muchos procesos productivos siguen ese comportamiento, lo que permite establecer límites de control estadísticamente válidos",
+      "Porque garantiza que todos los productos cumplirán con las especificaciones del cliente"
     ],
     explanation:"La distribución normal es fundamental en el CEP porque muchos procesos productivos siguen esta distribución, lo que permite establecer límites de control estadísticamente justificados."
   },
   {
     unit:"Unidad II — Modelos de regresión y ANOVA",
-    text:"¿Para qué se utiliza el Análisis de Varianza (ANOVA) en la industria agroalimentaria?",
-    correctText:"Para determinar si existen diferencias estadísticamente significativas entre las medias de tres o más grupos o tratamientos",
+    text:"¿Cuál es el propósito del Análisis de Varianza (ANOVA) en la industria agroalimentaria?",
+    correctText:"Comparar las medias de tres o más grupos para determinar si sus diferencias son estadísticamente significativas",
     options:[
-      "Para calcular el costo unitario de cada producto fabricado en planta",
-      "Para determinar si existen diferencias estadísticamente significativas entre las medias de tres o más grupos o tratamientos",
-      "Para diseñar la distribución física del área de producción en la planta",
-      "Para estimar el tiempo de vida útil de los equipos de producción"
+      "Calcular el costo unitario promedio de fabricación para cada línea de producto",
+      "Comparar las medias de tres o más grupos para determinar si sus diferencias son estadísticamente significativas",
+      "Diseñar el layout óptimo del almacén de materias primas e insumos",
+      "Estimar la vida útil proyectada de los equipos de producción en planta"
     ],
     explanation:"El ANOVA permite comparar simultáneamente las medias de múltiples grupos, determinando si las diferencias observadas son estadísticamente significativas o producto del azar."
   },
   {
     unit:"Unidad II — Modelos de regresión y ANOVA",
-    text:"¿Qué indica el coeficiente de determinación R² en un modelo de regresión?",
-    correctText:"La proporción de la variabilidad de la variable dependiente que es explicada por las variables independientes del modelo",
+    text:"¿Qué información proporciona el coeficiente R² en un modelo de regresión?",
+    correctText:"La proporción de la variación total de la variable respuesta que es explicada por el modelo ajustado",
     options:[
-      "La proporción de la variabilidad de la variable dependiente que es explicada por las variables independientes del modelo",
-      "El número de datos necesarios para construir el modelo de regresión",
-      "La diferencia entre el valor máximo y mínimo de los datos analizados",
-      "El costo asociado a implementar el modelo en la línea de producción"
+      "La proporción de la variación total de la variable respuesta que es explicada por el modelo ajustado",
+      "El número mínimo de observaciones requeridas para ajustar el modelo correctamente",
+      "El margen de error máximo permitido en las mediciones del proceso productivo",
+      "El tiempo necesario para que el proceso alcance su estado estacionario óptimo"
     ],
     explanation:"R² mide qué tan bien el modelo de regresión explica los datos; un valor cercano a 1 indica que el modelo explica gran parte de la variabilidad observada."
   },
   {
     unit:"Unidad II — Machine Learning en CEP",
-    text:"¿Qué es el machine learning y cómo puede aplicarse al control estadístico de procesos?",
-    correctText:"Es un conjunto de algoritmos que aprenden patrones de los datos para hacer predicciones; en CEP puede detectar anomalías y clasificar el estado del proceso automáticamente",
+    text:"¿Cómo puede el machine learning mejorar el Control Estadístico de Procesos?",
+    correctText:"Aprendiendo patrones en datos históricos para detectar anomalías y predecir desviaciones de forma automática",
     options:[
-      "Es un software exclusivo para diseño gráfico de productos alimenticios",
-      "Es un conjunto de algoritmos que aprenden patrones de los datos para hacer predicciones; en CEP puede detectar anomalías y clasificar el estado del proceso automáticamente",
-      "Es una técnica de marketing para identificar preferencias del consumidor final",
-      "Es un método manual de inspección visual de productos en línea de producción"
+      "Reemplazando al personal de producción por sistemas robóticos completamente autónomos",
+      "Aprendiendo patrones en datos históricos para detectar anomalías y predecir desviaciones de forma automática",
+      "Generando informes de ventas mensuales sin intervención del área comercial",
+      "Calculando los costos logísticos de distribución en cada región del país"
     ],
     explanation:"El machine learning permite a los sistemas aprender de datos históricos para identificar patrones, detectar anomalías y predecir desviaciones del proceso sin programación explícita de reglas."
   },
   {
     unit:"Unidad II — Machine Learning en CEP",
-    text:"¿Cuál es la diferencia entre aprendizaje supervisado y no supervisado en machine learning?",
-    correctText:"El supervisado usa datos etiquetados con resultados conocidos para entrenar el modelo; el no supervisado busca patrones en datos sin etiquetas previas",
+    text:"¿Cuál es la diferencia clave entre aprendizaje supervisado y no supervisado?",
+    correctText:"El supervisado entrena con datos etiquetados; el no supervisado descubre estructura en datos sin etiquetas previas",
     options:[
-      "El supervisado lo realiza un experto humano y el no supervisado lo hace la computadora sola sin datos",
-      "El supervisado usa datos etiquetados con resultados conocidos para entrenar el modelo; el no supervisado busca patrones en datos sin etiquetas previas",
-      "Ambos tipos producen exactamente los mismos modelos y resultados",
-      "El no supervisado requiere más tiempo de cómputo pero menos datos que el supervisado"
+      "El supervisado solo funciona con datos numéricos; el no supervisado acepta cualquier tipo de dato",
+      "El supervisado siempre produce mejores resultados que el no supervisado en cualquier tarea",
+      "El supervisado entrena con datos etiquetados; el no supervisado descubre estructura en datos sin etiquetas previas",
+      "El no supervisado requiere menos datos pero más tiempo de procesamiento que el supervisado"
     ],
     explanation:"En el aprendizaje supervisado el modelo aprende de ejemplos etiquetados (entrada-salida conocidas), mientras que en el no supervisado el algoritmo descubre estructura en datos sin etiquetas."
   },
-
-  // UNIDAD III — Control de calidad y mejora continua
   {
     unit:"Unidad III — Normas y estándares de calidad",
-    text:"¿Qué establece el sistema HACCP en la industria alimentaria?",
-    correctText:"Un enfoque preventivo para identificar, evaluar y controlar los peligros significativos para la inocuidad alimentaria en cada etapa del proceso",
+    text:"¿Cuál es el enfoque central del sistema HACCP en la industria alimentaria?",
+    correctText:"Identificar y controlar preventivamente los peligros críticos para la inocuidad en cada etapa del proceso",
     options:[
-      "Las especificaciones de diseño de envases para productos lácteos",
-      "Un enfoque preventivo para identificar, evaluar y controlar los peligros significativos para la inocuidad alimentaria en cada etapa del proceso",
-      "Los estándares de salario mínimo para trabajadores de la industria alimentaria",
-      "Los requisitos de infraestructura para construir plantas de procesamiento de alimentos"
+      "Establecer los márgenes de ganancia mínimos aceptables para cada producto alimenticio",
+      "Definir los requisitos de etiquetado nutricional exigidos por la normativa nacional",
+      "Identificar y controlar preventivamente los peligros críticos para la inocuidad en cada etapa del proceso",
+      "Fijar los criterios de selección y evaluación de proveedores de materias primas"
     ],
-    explanation:"HACCP (Hazard Analysis and Critical Control Points) es un sistema preventivo internacionalmente reconocido que identifica y controla peligros biológicos, químicos y físicos en la producción de alimentos."
+    explanation:"HACCP es un sistema preventivo internacionalmente reconocido que identifica y controla peligros biológicos, químicos y físicos en la producción de alimentos."
   },
   {
     unit:"Unidad III — Normas y estándares de calidad",
-    text:"¿Qué certifica la norma ISO 9001 en una organización?",
-    correctText:"Que la organización cuenta con un sistema de gestión de calidad que cumple con requisitos internacionales para mejorar continuamente sus procesos",
+    text:"¿Qué garantiza la certificación ISO 9001 en una empresa agroalimentaria?",
+    correctText:"Que opera con un sistema de gestión de calidad documentado, orientado a la mejora continua y al cliente",
     options:[
-      "Que todos los productos de la empresa están libres de cualquier defecto",
-      "Que la organización cuenta con un sistema de gestión de calidad que cumple con requisitos internacionales para mejorar continuamente sus procesos",
-      "Que la empresa utiliza exclusivamente materias primas orgánicas certificadas",
-      "Que el personal de producción tiene más de 10 años de experiencia en el sector"
+      "Que sus productos no contienen ningún tipo de alérgeno ni gluten declarado",
+      "Que opera con un sistema de gestión de calidad documentado, orientado a la mejora continua y al cliente",
+      "Que todos sus insumos provienen de agricultura orgánica certificada internacionalmente",
+      "Que cumple con los estándares de exportación exigidos por la Unión Europea"
     ],
     explanation:"ISO 9001 certifica que una organización tiene implementado un sistema de gestión de calidad basado en evidencia, enfoque al cliente y mejora continua, aplicable a cualquier sector incluyendo el agroalimentario."
   },
   {
     unit:"Unidad III — Métodos de control de calidad",
-    text:"¿Qué son las Siete Herramientas Básicas de la Calidad?",
-    correctText:"Un conjunto de técnicas gráficas y estadísticas (como histograma, diagrama de Pareto, diagrama de causa-efecto) usadas para analizar y resolver problemas de calidad",
+    text:"¿Qué representan las Siete Herramientas Básicas de la Calidad?",
+    correctText:"Un conjunto de técnicas gráficas y estadísticas para identificar, analizar y resolver problemas de calidad en procesos",
     options:[
-      "Siete tipos de equipos de medición obligatorios en laboratorios de calidad alimentaria",
-      "Los siete requisitos mínimos para obtener una certificación ISO",
-      "Un conjunto de técnicas gráficas y estadísticas (como histograma, diagrama de Pareto, diagrama de causa-efecto) usadas para analizar y resolver problemas de calidad",
-      "Los siete pasos del proceso de producción en la industria láctea"
+      "Los siete documentos obligatorios que exige la norma ISO para su certificación",
+      "Un conjunto de técnicas gráficas y estadísticas para identificar, analizar y resolver problemas de calidad en procesos",
+      "Los siete tipos de defectos más frecuentes en la industria de alimentos procesados",
+      "Las siete etapas del ciclo de vida de un producto agroalimentario en el mercado"
     ],
     explanation:"Las Siete Herramientas Básicas de la Calidad incluyen: hoja de verificación, diagrama de Pareto, histograma, diagrama de causa-efecto, gráfico de control, diagrama de dispersión y estratificación."
   },
   {
     unit:"Unidad III — Métodos de control de calidad",
-    text:"¿Qué describe el diagrama de Pareto y cómo apoya la mejora de procesos?",
-    correctText:"Identifica y ordena las causas de un problema por frecuencia, mostrando que generalmente el 80% de los defectos proviene del 20% de las causas, priorizando dónde actuar",
+    text:"¿Cuál es la utilidad del diagrama de Pareto en el análisis de calidad?",
+    correctText:"Priorizar las causas de defectos mostrando que un número pequeño de causas genera la mayor parte de los problemas",
     options:[
-      "Muestra la distribución de temperaturas en una cámara de refrigeración industrial",
-      "Identifica y ordena las causas de un problema por frecuencia, mostrando que generalmente el 80% de los defectos proviene del 20% de las causas, priorizando dónde actuar",
-      "Representa la relación entre el precio de venta y el volumen de producción mensual",
-      "Describe el flujo de materiales desde el proveedor hasta el consumidor final"
+      "Describir el flujo de materiales desde la recepción de insumos hasta el despacho",
+      "Priorizar las causas de defectos mostrando que un número pequeño de causas genera la mayor parte de los problemas",
+      "Representar la relación lineal entre dos variables continuas de un proceso",
+      "Mostrar la secuencia cronológica de actividades en un proyecto de mejora"
     ],
     explanation:"El diagrama de Pareto aplica el principio 80/20 para identificar las causas más frecuentes de defectos, permitiendo enfocar los esfuerzos de mejora donde tendrán mayor impacto."
   },
   {
     unit:"Unidad III — Mejora continua y CEP",
-    text:"¿Qué es el ciclo PDCA (Planear-Hacer-Verificar-Actuar) y cómo se relaciona con el CEP?",
-    correctText:"Es una metodología iterativa de mejora continua; el CEP proporciona los datos estadísticos en la fase de Verificar para evaluar si los cambios implementados mejoraron el proceso",
+    text:"¿Cuál es el papel del CEP dentro del ciclo PDCA de mejora continua?",
+    correctText:"Proporcionar evidencia estadística objetiva en la fase Verificar para evaluar el efecto real de los cambios aplicados",
     options:[
-      "Es un método de contabilidad para registrar costos de producción por etapa",
-      "Es una técnica de programación de turnos de trabajo en planta",
-      "Es una metodología iterativa de mejora continua; el CEP proporciona los datos estadísticos en la fase de Verificar para evaluar si los cambios implementados mejoraron el proceso",
-      "Es un protocolo de comunicación entre departamentos de ventas y producción"
+      "Elaborar el presupuesto de inversión requerido para implementar cada mejora propuesta",
+      "Proporcionar evidencia estadística objetiva en la fase Verificar para evaluar el efecto real de los cambios aplicados",
+      "Definir los responsables de cada actividad durante la fase de planeación del ciclo",
+      "Redactar los procedimientos operativos estándar que documentan el proceso mejorado"
     ],
     explanation:"El ciclo PDCA estructura la mejora continua en cuatro fases; el CEP es fundamental en la fase de Verificar, proporcionando evidencia estadística objetiva sobre el efecto de los cambios realizados."
   },
   {
     unit:"Unidad III — Mejora continua y CEP",
-    text:"¿Qué es la capacidad del proceso (Cp y Cpk) y qué indica sobre la calidad?",
-    correctText:"Son índices estadísticos que miden qué tan bien un proceso puede producir dentro de las especificaciones; valores mayores a 1.33 indican un proceso capaz",
+    text:"¿Qué miden los índices de capacidad del proceso Cp y Cpk?",
+    correctText:"Qué tan bien el proceso produce dentro de los límites de especificación del producto",
     options:[
-      "Son indicadores financieros que miden la rentabilidad de la línea de producción",
-      "Son índices estadísticos que miden qué tan bien un proceso puede producir dentro de las especificaciones; valores mayores a 1.33 indican un proceso capaz",
-      "Son métricas de desempeño del personal de producción evaluadas anualmente",
-      "Son parámetros físicos que miden la temperatura y presión en equipos industriales"
+      "La velocidad máxima de producción alcanzable bajo condiciones ideales de operación",
+      "El porcentaje de producto conforme obtenido en el último periodo de producción",
+      "Qué tan bien el proceso produce dentro de los límites de especificación del producto",
+      "El número de empleados necesarios para mantener el proceso bajo control estadístico"
     ],
-    explanation:"Cp y Cpk son índices de capacidad del proceso que relacionan la variabilidad natural del proceso con los límites de especificación del producto; son fundamentales para evaluar si el proceso cumple con los requisitos de calidad."
+    explanation:"Cp y Cpk son índices de capacidad del proceso que relacionan la variabilidad natural del proceso con los límites de especificación; son fundamentales para evaluar si el proceso cumple con los requisitos de calidad."
   },
   {
     unit:"Unidad III — Mejora continua y CEP",
-    text:"¿Qué es Six Sigma como metodología de mejora de calidad?",
-    correctText:"Una metodología estructurada que busca reducir defectos hasta 3.4 por millón de oportunidades mediante el análisis estadístico riguroso de procesos",
+    text:"¿En qué consiste la metodología Six Sigma aplicada a procesos industriales?",
+    correctText:"En reducir la variabilidad y los defectos del proceso usando el ciclo DMAIC y herramientas estadísticas avanzadas",
     options:[
-      "Una metodología estructurada que busca reducir defectos hasta 3.4 por millón de oportunidades mediante el análisis estadístico riguroso de procesos",
-      "Un sistema de certificación de productos orgánicos para exportación",
-      "Una técnica de diseño de plantas industriales basada en ergonomía",
-      "Un protocolo de seguridad e higiene para trabajadores de la industria alimentaria"
+      "En certificar que el producto cumple con seis normas internacionales de inocuidad alimentaria",
+      "En reducir la variabilidad y los defectos del proceso usando el ciclo DMAIC y herramientas estadísticas avanzadas",
+      "En entrenar a seis operadores por turno como especialistas en control visual de calidad",
+      "En establecer seis puntos de control de temperatura a lo largo de la línea de producción"
     ],
     explanation:"Six Sigma es una metodología de mejora basada en datos que utiliza el ciclo DMAIC (Definir, Medir, Analizar, Mejorar, Controlar) y herramientas estadísticas avanzadas para reducir la variabilidad y los defectos."
   },
   {
     unit:"Unidad I — CEP en la agroindustria",
-    text:"¿Por qué es especialmente importante el CEP en la industria agroalimentaria?",
-    correctText:"Porque permite controlar la calidad e inocuidad de los alimentos en tiempo real, reduciendo riesgos para la salud del consumidor y minimizando pérdidas por producto fuera de especificación",
+    text:"¿Por qué el CEP es especialmente relevante en la industria agroalimentaria?",
+    correctText:"Porque controlar la variabilidad del proceso es clave para garantizar inocuidad y calidad en cada lote producido",
     options:[
-      "Porque facilita el diseño de empaques atractivos para competir en el mercado",
-      "Porque reduce los impuestos que paga la empresa al gobierno por producción",
-      "Porque permite controlar la calidad e inocuidad de los alimentos en tiempo real, reduciendo riesgos para la salud del consumidor y minimizando pérdidas por producto fuera de especificación",
-      "Porque automatiza completamente el proceso productivo sin intervención humana"
+      "Porque permite reducir el número de proveedores sin afectar el suministro de materias primas",
+      "Porque controlar la variabilidad del proceso es clave para garantizar inocuidad y calidad en cada lote producido",
+      "Porque facilita la negociación de contratos con distribuidores y cadenas de supermercados",
+      "Porque incrementa automáticamente la capacidad instalada de la planta sin inversión adicional"
     ],
     explanation:"En la industria agroalimentaria el CEP es crítico porque los descontroles pueden resultar en productos inseguros para el consumo, con graves consecuencias para la salud pública y pérdidas económicas significativas."
   }
