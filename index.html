@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Diagnóstico — Control Estadístico de Procesos</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{--bg:#0a0f0d;--surface:#111a14;--surface2:#182019;--accent:#4ade80;--accent2:#86efac;--text:#f0fdf4;--muted:#6b7280;--border:#1f2d22;--correct:#4ade80;--wrong:#f87171;--radius:8px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;}
+  header{background:var(--surface);border-bottom:2px solid var(--accent);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  .header-left h1{font-size:1.3rem;font-weight:800;letter-spacing:-0.5px;color:var(--accent);}
+  .header-left p{font-size:0.78rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-top:4px;}
+  .badge{background:var(--accent);color:#000;font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:20px;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;}
+  .progress-wrap{padding:14px 40px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;}
+  .progress-bar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.4s ease;width:0%;}
+  .progress-text{font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--muted);white-space:nowrap;}
+  main{max-width:820px;margin:0 auto;padding:40px 24px 80px;}
+  #name-screen{text-align:center;padding:40px 0;}
+  #name-screen h2{font-size:1.8rem;font-weight:800;margin-bottom:12px;}
+  #name-screen p{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:0.85rem;margin-bottom:32px;}
+  .name-input-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;}
+  #student-name{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:600;padding:16px 24px;width:100%;max-width:440px;outline:none;transition:border-color 0.2s;text-align:center;}
+  #student-name:focus{border-color:var(--accent);}
+  #student-name::placeholder{color:var(--muted);font-weight:400;}
+  .btn-start{background:var(--accent);color:#000;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;padding:16px 40px;border:none;border-radius:var(--radius);cursor:pointer;transition:all 0.2s;}
+  .btn-start:hover{opacity:0.85;transform:translateY(-2px);}
+  .name-note{font-size:0.75rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;}
+  .question-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;display:none;animation:fadeIn 0.3s ease;}
+  .question-card.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .q-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .q-number{background:var(--accent);color:#000;font-weight:800;font-size:0.8rem;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .q-unit{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--accent2);background:rgba(134,239,172,0.1);padding:3px 10px;border-radius:20px;border:1px solid rgba(134,239,172,0.25);}
+  .q-text{font-size:1.05rem;font-weight:600;line-height:1.5;margin-bottom:24px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .option{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:all 0.2s;font-size:0.92rem;line-height:1.4;}
+  .option:hover:not(.disabled){border-color:var(--accent);background:rgba(74,222,128,0.06);}
+  .option-letter{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:0.8rem;color:var(--muted);width:20px;flex-shrink:0;}
+  .option.correct{border-color:var(--correct);background:rgba(74,222,128,0.08);}
+  .option.correct .option-letter{color:var(--correct);}
+  .option.wrong{border-color:var(--wrong);background:rgba(248,113,113,0.08);}
+  .option.wrong .option-letter{color:var(--wrong);}
+  .option.disabled{cursor:default;}
+  .feedback{margin-top:18px;padding:14px 18px;border-radius:var(--radius);font-size:0.88rem;line-height:1.5;display:none;}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);color:var(--correct);}
+  .feedback.wrong-fb{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.3);color:#fca5a5;}
+  .nav-buttons{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;}
+  .btn{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;padding:12px 24px;border-radius:var(--radius);border:none;cursor:pointer;transition:all 0.2s;}
+  .btn-primary{background:var(--accent);color:#000;}
+  .btn-primary:hover{opacity:0.85;transform:translateY(-1px);}
+  .btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);}
+  .btn-secondary:hover{color:var(--text);border-color:var(--muted);}
+  .btn:disabled{opacity:0.3;cursor:default;transform:none;}
+  #results-screen{display:none;text-align:center;}
+  #results-screen.active{display:block;}
+  .student-label{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:16px;}
+  .score-circle{width:140px;height:140px;border-radius:50%;border:4px solid var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 24px;background:rgba(74,222,128,0.05);}
+  .score-num{font-size:2.8rem;font-weight:800;color:var(--accent);line-height:1;}
+  .score-label{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--muted);margin-top:4px;}
+  .result-title{font-size:1.6rem;font-weight:800;margin-bottom:8px;}
+  .result-sub{color:var(--muted);font-size:0.9rem;margin-bottom:32px;font-family:'IBM Plex Mono',monospace;}
+  .save-status{margin:16px auto;padding:12px 20px;border-radius:var(--radius);font-family:'IBM Plex Mono',monospace;font-size:0.8rem;max-width:420px;}
+  .save-status.saving{background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);color:var(--accent2);}
+  .save-status.saved{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);color:var(--correct);}
+  .save-status.error{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.3);color:#fca5a5;}
+  .qr-section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:32px;margin-top:32px;}
+  .qr-section h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--accent2);}
+  .qr-section p{font-size:0.8rem;color:var(--muted);margin-bottom:20px;font-family:'IBM Plex Mono',monospace;}
+  #qrcode{display:inline-block;padding:16px;background:white;border-radius:8px;}
+  .review-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:32px;}
+  .review-item{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;font-family:'IBM Plex Mono',monospace;}
+  .review-item.c{background:rgba(74,222,128,0.15);color:var(--correct);border:1px solid rgba(74,222,128,0.3);}
+  .review-item.w{background:rgba(248,113,113,0.15);color:var(--wrong);border:1px solid rgba(248,113,113,0.3);}
+  .btn-restart{margin-top:24px;background:var(--accent);color:#000;font-family:'Syne',sans-serif;font-weight:700;padding:14px 32px;border:none;border-radius:var(--radius);cursor:pointer;font-size:0.9rem;transition:all 0.2s;}
+  .btn-restart:hover{opacity:0.85;}
+  @media(max-width:600px){header{padding:20px}.progress-wrap{padding:12px 20px}main{padding:24px 16px 60px}.question-card{padding:22px}.review-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <h1>Examen Diagnóstico</h1>
+    <p>Control Estadístico de Procesos — Maestría en Ciencia y Tecnología Agroalimentaria</p>
+  </div>
+  <span class="badge">20 PREGUNTAS</span>
+</header>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <span class="progress-text" id="progress-text">0 / 20</span>
+</div>
+<main>
+  <div id="name-screen">
+    <h2>¡Bienvenido! 👋</h2>
+    <p>Ingresa tu nombre completo para comenzar el examen diagnóstico</p>
+    <div class="name-input-wrap">
+      <input type="text" id="student-name" placeholder="Nombre completo" maxlength="80" autocomplete="off"/>
+      <button class="btn-start" onclick="startQuiz()">Comenzar examen →</button>
+      <span class="name-note">Tus resultados se guardarán automáticamente al finalizar</span>
+    </div>
+  </div>
+  <div id="quiz-container" style="display:none"></div>
+  <div id="results-screen">
+    <div class="student-label" id="student-label">—</div>
+    <div class="score-circle"><div class="score-num" id="score-num">0</div><div class="score-label">/ 20</div></div>
+    <div class="result-title" id="result-title">—</div>
+    <div class="result-sub" id="result-sub">—</div>
+    <div class="save-status saving" id="save-status">⏳ Guardando resultados...</div>
+    <div class="review-grid" id="review-grid"></div>
+    <button class="btn-restart" onclick="restartQuiz()">↺ Nuevo intento</button>
+    <div class="qr-section">
+      <h3>📱 Comparte este examen</h3>
+      <p>Escanea el QR para acceder desde cualquier dispositivo</p>
+      <div id="qrcode"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const WEBAPP_URL = 'TU_URL_APPS_SCRIPT_AQUI';
+
+const bank = [
+  // UNIDAD I — Tendencias actuales en CEP
+  {
+    unit:"Unidad I — Fundamentos del CEP",
+    text:"¿Cuál es el objetivo principal de los gráficos de control en el Control Estadístico de Procesos?",
+    correctText:"Monitorear la variabilidad de un proceso a lo largo del tiempo para detectar causas especiales de variación",
+    options:[
+      "Monitorear la variabilidad de un proceso a lo largo del tiempo para detectar causas especiales de variación",
+      "Calcular el costo total de producción de un lote de alimentos",
+      "Determinar el precio de venta de un producto agroalimentario",
+      "Establecer los turnos de trabajo del personal de planta"
+    ],
+    explanation:"Los gráficos de control permiten monitorear la variabilidad de un proceso en el tiempo, distinguiendo entre variación natural (causas comunes) y variación anormal (causas especiales)."
+  },
+  {
+    unit:"Unidad I — Fundamentos del CEP",
+    text:"¿Qué se entiende por variabilidad en un proceso productivo?",
+    correctText:"Las diferencias inevitables que existen entre unidades producidas bajo las mismas condiciones operativas",
+    options:[
+      "El número de empleados que trabajan en el turno de producción",
+      "Las diferencias inevitables que existen entre unidades producidas bajo las mismas condiciones operativas",
+      "El tiempo total que tarda un producto en llegar al mercado",
+      "La diferencia entre el precio de compra y el precio de venta de un producto"
+    ],
+    explanation:"La variabilidad se refiere a las diferencias naturales entre unidades producidas bajo las mismas condiciones; entenderla y controlarla es el fundamento del CEP."
+  },
+  {
+    unit:"Unidad I — Industria 4.0 y CEP",
+    text:"¿Cuál de los siguientes es un componente clave de la Industria 4.0 aplicable al CEP?",
+    correctText:"Internet de las Cosas (IoT), que permite la recolección de datos en tiempo real desde sensores en línea de producción",
+    options:[
+      "Uso exclusivo de registros en papel para documentar la producción",
+      "Reducción del número de trabajadores en planta sin sustitución tecnológica",
+      "Internet de las Cosas (IoT), que permite la recolección de datos en tiempo real desde sensores en línea de producción",
+      "Eliminación de los procesos de inspección de calidad en la industria"
+    ],
+    explanation:"La Industria 4.0 incorpora tecnologías como IoT, inteligencia artificial y Big Data que permiten recolectar y analizar datos en tiempo real, transformando la manera en que se implementa el CEP."
+  },
+  {
+    unit:"Unidad I — Big Data en procesos agroalimentarios",
+    text:"¿Qué ventaja ofrece el análisis predictivo basado en Big Data en la industria agroalimentaria?",
+    correctText:"Anticipar fallas o desviaciones del proceso antes de que afecten la calidad del producto",
+    options:[
+      "Eliminar la necesidad de realizar pruebas de laboratorio en los productos",
+      "Anticipar fallas o desviaciones del proceso antes de que afecten la calidad del producto",
+      "Reducir el número de empleados en los departamentos de calidad",
+      "Reemplazar completamente al personal de supervisión de planta"
+    ],
+    explanation:"El análisis predictivo con Big Data permite identificar patrones y anticipar desviaciones antes de que ocurran, mejorando la eficiencia y reduciendo desperdicios en procesos agroalimentarios."
+  },
+  {
+    unit:"Unidad I — Herramientas digitales en CEP",
+    text:"¿Para qué se utiliza un software especializado de CEP como Minitab, R o SPSS en la industria?",
+    correctText:"Para analizar datos de proceso, construir gráficos de control y realizar pruebas estadísticas de forma eficiente",
+    options:[
+      "Para diseñar el empaque visual de los productos agroalimentarios",
+      "Para calcular el salario del personal de producción",
+      "Para analizar datos de proceso, construir gráficos de control y realizar pruebas estadísticas de forma eficiente",
+      "Para gestionar las compras de materia prima del almacén"
+    ],
+    explanation:"Los paquetes estadísticos especializados automatizan el análisis de datos, construcción de gráficos de control y pruebas estadísticas, haciendo más eficiente la implementación del CEP."
+  },
+
+  // UNIDAD II — Modelado y análisis de datos
+  {
+    unit:"Unidad II — Técnicas de muestreo",
+    text:"¿Cuál es la diferencia entre muestreo aleatorio simple y muestreo estratificado?",
+    correctText:"El muestreo aleatorio selecciona unidades al azar de toda la población, mientras que el estratificado divide la población en grupos homogéneos y muestrea cada uno",
+    options:[
+      "El muestreo aleatorio es más costoso que el estratificado en todos los casos",
+      "El muestreo aleatorio selecciona unidades al azar de toda la población, mientras que el estratificado divide la población en grupos homogéneos y muestrea cada uno",
+      "El muestreo estratificado solo se aplica en estudios de mercado, no en producción",
+      "Ambos métodos producen exactamente los mismos resultados siempre"
+    ],
+    explanation:"El muestreo aleatorio simple da igual probabilidad a todas las unidades, mientras que el estratificado asegura representatividad de subgrupos importantes dentro de la población."
+  },
+  {
+    unit:"Unidad II — Técnicas de muestreo",
+    text:"¿Qué es el tamaño de muestra y por qué es importante en el control estadístico?",
+    correctText:"Es la cantidad de unidades seleccionadas para el análisis; un tamaño adecuado garantiza resultados representativos y estadísticamente válidos",
+    options:[
+      "Es el peso total del lote de producción analizado en el laboratorio",
+      "Es el número de trabajadores que participan en el proceso de inspección",
+      "Es la cantidad de unidades seleccionadas para el análisis; un tamaño adecuado garantiza resultados representativos y estadísticamente válidos",
+      "Es el tiempo que tarda en completarse un ciclo de producción"
+    ],
+    explanation:"El tamaño de muestra determina la precisión y confiabilidad de las estimaciones estadísticas; un tamaño inadecuado puede llevar a conclusiones erróneas sobre el estado del proceso."
+  },
+  {
+    unit:"Unidad II — Enfoques estadísticos en agroindustria",
+    text:"¿Qué es la distribución normal y cuál es su importancia en el CEP?",
+    correctText:"Es una distribución de probabilidad simétrica en forma de campana; muchos procesos naturales la siguen, lo que fundamenta el uso de gráficos de control",
+    options:[
+      "Es una distribución que solo aplica en datos financieros y económicos",
+      "Es un gráfico de barras usado para comparar productos distintos",
+      "Es una distribución de probabilidad simétrica en forma de campana; muchos procesos naturales la siguen, lo que fundamenta el uso de gráficos de control",
+      "Es el promedio de las mediciones de un proceso durante una semana"
+    ],
+    explanation:"La distribución normal es fundamental en el CEP porque muchos procesos productivos siguen esta distribución, lo que permite establecer límites de control estadísticamente justificados."
+  },
+  {
+    unit:"Unidad II — Modelos de regresión y ANOVA",
+    text:"¿Para qué se utiliza el Análisis de Varianza (ANOVA) en la industria agroalimentaria?",
+    correctText:"Para determinar si existen diferencias estadísticamente significativas entre las medias de tres o más grupos o tratamientos",
+    options:[
+      "Para calcular el costo unitario de cada producto fabricado en planta",
+      "Para determinar si existen diferencias estadísticamente significativas entre las medias de tres o más grupos o tratamientos",
+      "Para diseñar la distribución física del área de producción en la planta",
+      "Para estimar el tiempo de vida útil de los equipos de producción"
+    ],
+    explanation:"El ANOVA permite comparar simultáneamente las medias de múltiples grupos, determinando si las diferencias observadas son estadísticamente significativas o producto del azar."
+  },
+  {
+    unit:"Unidad II — Modelos de regresión y ANOVA",
+    text:"¿Qué indica el coeficiente de determinación R² en un modelo de regresión?",
+    correctText:"La proporción de la variabilidad de la variable dependiente que es explicada por las variables independientes del modelo",
+    options:[
+      "La proporción de la variabilidad de la variable dependiente que es explicada por las variables independientes del modelo",
+      "El número de datos necesarios para construir el modelo de regresión",
+      "La diferencia entre el valor máximo y mínimo de los datos analizados",
+      "El costo asociado a implementar el modelo en la línea de producción"
+    ],
+    explanation:"R² mide qué tan bien el modelo de regresión explica los datos; un valor cercano a 1 indica que el modelo explica gran parte de la variabilidad observada."
+  },
+  {
+    unit:"Unidad II — Machine Learning en CEP",
+    text:"¿Qué es el machine learning y cómo puede aplicarse al control estadístico de procesos?",
+    correctText:"Es un conjunto de algoritmos que aprenden patrones de los datos para hacer predicciones; en CEP puede detectar anomalías y clasificar el estado del proceso automáticamente",
+    options:[
+      "Es un software exclusivo para diseño gráfico de productos alimenticios",
+      "Es un conjunto de algoritmos que aprenden patrones de los datos para hacer predicciones; en CEP puede detectar anomalías y clasificar el estado del proceso automáticamente",
+      "Es una técnica de marketing para identificar preferencias del consumidor final",
+      "Es un método manual de inspección visual de productos en línea de producción"
+    ],
+    explanation:"El machine learning permite a los sistemas aprender de datos históricos para identificar patrones, detectar anomalías y predecir desviaciones del proceso sin programación explícita de reglas."
+  },
+  {
+    unit:"Unidad II — Machine Learning en CEP",
+    text:"¿Cuál es la diferencia entre aprendizaje supervisado y no supervisado en machine learning?",
+    correctText:"El supervisado usa datos etiquetados con resultados conocidos para entrenar el modelo; el no supervisado busca patrones en datos sin etiquetas previas",
+    options:[
+      "El supervisado lo realiza un experto humano y el no supervisado lo hace la computadora sola sin datos",
+      "El supervisado usa datos etiquetados con resultados conocidos para entrenar el modelo; el no supervisado busca patrones en datos sin etiquetas previas",
+      "Ambos tipos producen exactamente los mismos modelos y resultados",
+      "El no supervisado requiere más tiempo de cómputo pero menos datos que el supervisado"
+    ],
+    explanation:"En el aprendizaje supervisado el modelo aprende de ejemplos etiquetados (entrada-salida conocidas), mientras que en el no supervisado el algoritmo descubre estructura en datos sin etiquetas."
+  },
+
+  // UNIDAD III — Control de calidad y mejora continua
+  {
+    unit:"Unidad III — Normas y estándares de calidad",
+    text:"¿Qué establece el sistema HACCP en la industria alimentaria?",
+    correctText:"Un enfoque preventivo para identificar, evaluar y controlar los peligros significativos para la inocuidad alimentaria en cada etapa del proceso",
+    options:[
+      "Las especificaciones de diseño de envases para productos lácteos",
+      "Un enfoque preventivo para identificar, evaluar y controlar los peligros significativos para la inocuidad alimentaria en cada etapa del proceso",
+      "Los estándares de salario mínimo para trabajadores de la industria alimentaria",
+      "Los requisitos de infraestructura para construir plantas de procesamiento de alimentos"
+    ],
+    explanation:"HACCP (Hazard Analysis and Critical Control Points) es un sistema preventivo internacionalmente reconocido que identifica y controla peligros biológicos, químicos y físicos en la producción de alimentos."
+  },
+  {
+    unit:"Unidad III — Normas y estándares de calidad",
+    text:"¿Qué certifica la norma ISO 9001 en una organización?",
+    correctText:"Que la organización cuenta con un sistema de gestión de calidad que cumple con requisitos internacionales para mejorar continuamente sus procesos",
+    options:[
+      "Que todos los productos de la empresa están libres de cualquier defecto",
+      "Que la organización cuenta con un sistema de gestión de calidad que cumple con requisitos internacionales para mejorar continuamente sus procesos",
+      "Que la empresa utiliza exclusivamente materias primas orgánicas certificadas",
+      "Que el personal de producción tiene más de 10 años de experiencia en el sector"
+    ],
+    explanation:"ISO 9001 certifica que una organización tiene implementado un sistema de gestión de calidad basado en evidencia, enfoque al cliente y mejora continua, aplicable a cualquier sector incluyendo el agroalimentario."
+  },
+  {
+    unit:"Unidad III — Métodos de control de calidad",
+    text:"¿Qué son las Siete Herramientas Básicas de la Calidad?",
+    correctText:"Un conjunto de técnicas gráficas y estadísticas (como histograma, diagrama de Pareto, diagrama de causa-efecto) usadas para analizar y resolver problemas de calidad",
+    options:[
+      "Siete tipos de equipos de medición obligatorios en laboratorios de calidad alimentaria",
+      "Los siete requisitos mínimos para obtener una certificación ISO",
+      "Un conjunto de técnicas gráficas y estadísticas (como histograma, diagrama de Pareto, diagrama de causa-efecto) usadas para analizar y resolver problemas de calidad",
+      "Los siete pasos del proceso de producción en la industria láctea"
+    ],
+    explanation:"Las Siete Herramientas Básicas de la Calidad incluyen: hoja de verificación, diagrama de Pareto, histograma, diagrama de causa-efecto, gráfico de control, diagrama de dispersión y estratificación."
+  },
+  {
+    unit:"Unidad III — Métodos de control de calidad",
+    text:"¿Qué describe el diagrama de Pareto y cómo apoya la mejora de procesos?",
+    correctText:"Identifica y ordena las causas de un problema por frecuencia, mostrando que generalmente el 80% de los defectos proviene del 20% de las causas, priorizando dónde actuar",
+    options:[
+      "Muestra la distribución de temperaturas en una cámara de refrigeración industrial",
+      "Identifica y ordena las causas de un problema por frecuencia, mostrando que generalmente el 80% de los defectos proviene del 20% de las causas, priorizando dónde actuar",
+      "Representa la relación entre el precio de venta y el volumen de producción mensual",
+      "Describe el flujo de materiales desde el proveedor hasta el consumidor final"
+    ],
+    explanation:"El diagrama de Pareto aplica el principio 80/20 para identificar las causas más frecuentes de defectos, permitiendo enfocar los esfuerzos de mejora donde tendrán mayor impacto."
+  },
+  {
+    unit:"Unidad III — Mejora continua y CEP",
+    text:"¿Qué es el ciclo PDCA (Planear-Hacer-Verificar-Actuar) y cómo se relaciona con el CEP?",
+    correctText:"Es una metodología iterativa de mejora continua; el CEP proporciona los datos estadísticos en la fase de Verificar para evaluar si los cambios implementados mejoraron el proceso",
+    options:[
+      "Es un método de contabilidad para registrar costos de producción por etapa",
+      "Es una técnica de programación de turnos de trabajo en planta",
+      "Es una metodología iterativa de mejora continua; el CEP proporciona los datos estadísticos en la fase de Verificar para evaluar si los cambios implementados mejoraron el proceso",
+      "Es un protocolo de comunicación entre departamentos de ventas y producción"
+    ],
+    explanation:"El ciclo PDCA estructura la mejora continua en cuatro fases; el CEP es fundamental en la fase de Verificar, proporcionando evidencia estadística objetiva sobre el efecto de los cambios realizados."
+  },
+  {
+    unit:"Unidad III — Mejora continua y CEP",
+    text:"¿Qué es la capacidad del proceso (Cp y Cpk) y qué indica sobre la calidad?",
+    correctText:"Son índices estadísticos que miden qué tan bien un proceso puede producir dentro de las especificaciones; valores mayores a 1.33 indican un proceso capaz",
+    options:[
+      "Son indicadores financieros que miden la rentabilidad de la línea de producción",
+      "Son índices estadísticos que miden qué tan bien un proceso puede producir dentro de las especificaciones; valores mayores a 1.33 indican un proceso capaz",
+      "Son métricas de desempeño del personal de producción evaluadas anualmente",
+      "Son parámetros físicos que miden la temperatura y presión en equipos industriales"
+    ],
+    explanation:"Cp y Cpk son índices de capacidad del proceso que relacionan la variabilidad natural del proceso con los límites de especificación del producto; son fundamentales para evaluar si el proceso cumple con los requisitos de calidad."
+  },
+  {
+    unit:"Unidad III — Mejora continua y CEP",
+    text:"¿Qué es Six Sigma como metodología de mejora de calidad?",
+    correctText:"Una metodología estructurada que busca reducir defectos hasta 3.4 por millón de oportunidades mediante el análisis estadístico riguroso de procesos",
+    options:[
+      "Una metodología estructurada que busca reducir defectos hasta 3.4 por millón de oportunidades mediante el análisis estadístico riguroso de procesos",
+      "Un sistema de certificación de productos orgánicos para exportación",
+      "Una técnica de diseño de plantas industriales basada en ergonomía",
+      "Un protocolo de seguridad e higiene para trabajadores de la industria alimentaria"
+    ],
+    explanation:"Six Sigma es una metodología de mejora basada en datos que utiliza el ciclo DMAIC (Definir, Medir, Analizar, Mejorar, Controlar) y herramientas estadísticas avanzadas para reducir la variabilidad y los defectos."
+  },
+  {
+    unit:"Unidad I — CEP en la agroindustria",
+    text:"¿Por qué es especialmente importante el CEP en la industria agroalimentaria?",
+    correctText:"Porque permite controlar la calidad e inocuidad de los alimentos en tiempo real, reduciendo riesgos para la salud del consumidor y minimizando pérdidas por producto fuera de especificación",
+    options:[
+      "Porque facilita el diseño de empaques atractivos para competir en el mercado",
+      "Porque reduce los impuestos que paga la empresa al gobierno por producción",
+      "Porque permite controlar la calidad e inocuidad de los alimentos en tiempo real, reduciendo riesgos para la salud del consumidor y minimizando pérdidas por producto fuera de especificación",
+      "Porque automatiza completamente el proceso productivo sin intervención humana"
+    ],
+    explanation:"En la industria agroalimentaria el CEP es crítico porque los descontroles pueden resultar en productos inseguros para el consumo, con graves consecuencias para la salud pública y pérdidas económicas significativas."
+  },
+  {
+    unit:"Unidad II — Análisis estadístico",
+    text:"¿Qué es un intervalo de confianza y cómo se interpreta en el análisis de datos de proceso?",
+    correctText:"Es un rango de valores calculado a partir de los datos muestrales dentro del cual se espera que se encuentre el parámetro poblacional real con una probabilidad determinada",
+    options:[
+      "Es el rango de temperaturas aceptable dentro de una cámara de conservación de alimentos",
+      "Es el tiempo entre dos inspecciones consecutivas en la línea de producción",
+      "Es un rango de valores calculado a partir de los datos muestrales dentro del cual se espera que se encuentre el parámetro poblacional real con una probabilidad determinada",
+      "Es la diferencia entre el límite superior e inferior de especificación de un producto"
+    ],
+    explanation:"Un intervalo de confianza del 95%, por ejemplo, indica que si repitiéramos el muestreo muchas veces, el 95% de los intervalos calculados contendrían el verdadero parámetro poblacional."
+  }
+];
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function buildQuestions(){
+  return shuffle(bank).map(q=>{
+    const shuffled=shuffle(q.options);
+    return{unit:q.unit,text:q.text,options:shuffled,correct:shuffled.indexOf(q.correctText),explanation:q.explanation};
+  });
+}
+
+let questions=[],currentQ=0,answers=[],score=0,studentName='';
+
+function startQuiz(){
+  const input=document.getElementById('student-name').value.trim();
+  if(!input){document.getElementById('student-name').style.borderColor='var(--wrong)';document.getElementById('student-name').focus();return;}
+  studentName=input;
+  questions=buildQuestions();
+  answers=new Array(questions.length).fill(null);
+  document.getElementById('name-screen').style.display='none';
+  document.getElementById('quiz-container').style.display='block';
+  renderQuiz();
+}
+
+document.getElementById('student-name').addEventListener('keydown',e=>{
+  if(e.key==='Enter')startQuiz();
+  document.getElementById('student-name').style.borderColor='';
+});
+
+function renderQuiz(){
+  const container=document.getElementById('quiz-container');
+  container.innerHTML='';
+  questions.forEach((q,i)=>{
+    const card=document.createElement('div');
+    card.className='question-card'+(i===0?' active':'');
+    card.id=`q-${i}`;
+    card.innerHTML=`
+      <div class="q-header">
+        <div class="q-number">${i+1}</div>
+        <span class="q-unit">${q.unit}</span>
+      </div>
+      <div class="q-text">${q.text}</div>
+      <div class="options" id="opts-${i}">
+        ${q.options.map((opt,j)=>`
+          <div class="option" id="opt-${i}-${j}" onclick="selectAnswer(${i},${j})">
+            <span class="option-letter">${['A','B','C','D'][j]}</span>
+            <span>${opt}</span>
+          </div>`).join('')}
+      </div>
+      <div class="feedback" id="fb-${i}"></div>
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="navigate(-1)" ${i===0?'disabled':''}>← Anterior</button>
+        <button class="btn btn-primary" id="next-btn-${i}" onclick="${i===questions.length-1?'showResults()':'navigate(1)'}" disabled>
+          ${i===questions.length-1?'Ver resultados →':'Siguiente →'}
+        </button>
+      </div>`;
+    container.appendChild(card);
+  });
+  updateProgress();
+}
+
+function selectAnswer(qIdx,optIdx){
+  if(answers[qIdx]!==null)return;
+  answers[qIdx]=optIdx;
+  const q=questions[qIdx];
+  document.querySelectorAll(`#opts-${qIdx} .option`).forEach(o=>o.classList.add('disabled'));
+  document.getElementById(`opt-${qIdx}-${optIdx}`).classList.add(optIdx===q.correct?'correct':'wrong');
+  if(optIdx!==q.correct)document.getElementById(`opt-${qIdx}-${q.correct}`).classList.add('correct');
+  if(optIdx===q.correct)score++;
+  const fb=document.getElementById(`fb-${qIdx}`);
+  fb.textContent=(optIdx===q.correct?'✓ Correcto. ':'✗ Incorrecto. ')+q.explanation;
+  fb.className='feedback show '+(optIdx===q.correct?'correct-fb':'wrong-fb');
+  document.getElementById(`next-btn-${qIdx}`).disabled=false;
+  updateProgress();
+}
+
+function navigate(dir){
+  document.getElementById(`q-${currentQ}`).classList.remove('active');
+  currentQ+=dir;
+  document.getElementById(`q-${currentQ}`).classList.add('active');
+  updateProgress();
+}
+
+function updateProgress(){
+  const answered=answers.filter(a=>a!==null).length;
+  document.getElementById('progress-fill').style.width=(answered/questions.length*100)+'%';
+  document.getElementById('progress-text').textContent=`${answered} / ${questions.length}`;
+}
+
+function showResults(){
+  document.getElementById('quiz-container').style.display='none';
+  document.getElementById('results-screen').classList.add('active');
+  document.getElementById('student-label').textContent=`Estudiante: ${studentName}`;
+  document.getElementById('score-num').textContent=score;
+  const pct=score/questions.length;
+  let title,sub;
+  if(pct>=0.9){title='¡Excelente base!';sub='Tienes conocimientos sólidos en estadística y calidad.';}
+  else if(pct>=0.7){title='Buen punto de partida';sub='Refuerza algunos conceptos antes de iniciar el curso.';}
+  else if(pct>=0.5){title='Conocimiento básico';sub='El curso te dará las herramientas que necesitas.';}
+  else{title='¡Bienvenido al tema!';sub='Este curso construirá desde los fundamentos contigo.';}
+  document.getElementById('result-title').textContent=title;
+  document.getElementById('result-sub').textContent=sub+` (${score}/20 correctas)`;
+  const grid=document.getElementById('review-grid');
+  answers.forEach((a,i)=>{
+    const cell=document.createElement('div');
+    cell.className='review-item '+(a===questions[i].correct?'c':'w');
+    cell.textContent=i+1;
+    grid.appendChild(cell);
+  });
+  new QRCode(document.getElementById('qrcode'),{text:window.location.href,width:160,height:160,colorDark:'#000000',colorLight:'#ffffff'});
+  saveToSheet();
+}
+
+async function saveToSheet(){
+  const status=document.getElementById('save-status');
+  const now=new Date();
+  const detalle=answers.map((a,i)=>a===questions[i].correct?'✓':'✗').join(' ');
+  const params=new URLSearchParams({
+    examen:'Control Estadístico de Procesos',
+    nombre:studentName,
+    fecha:now.toLocaleDateString('es-MX'),
+    hora:now.toLocaleTimeString('es-MX'),
+    puntaje:score,
+    total:questions.length,
+    porcentaje:Math.round(score/questions.length*100)+'%',
+    detalle:detalle
+  });
+  try{
+    await fetch(WEBAPP_URL+'?'+params.toString(),{method:'GET',mode:'no-cors'});
+    status.className='save-status saved';
+    status.textContent='✓ Resultados guardados en Google Sheets';
+  }catch(e){
+    status.className='save-status error';
+    status.textContent='⚠ No se pudo guardar. Verifica la conexión.';
+  }
+}
+
+function restartQuiz(){
+  currentQ=0;score=0;studentName='';answers=[];
+  document.getElementById('results-screen').classList.remove('active');
+  document.getElementById('results-screen').innerHTML=`
+    <div class="student-label" id="student-label">—</div>
+    <div class="score-circle"><div class="score-num" id="score-num">0</div><div class="score-label">/ 20</div></div>
+    <div class="result-title" id="result-title">—</div>
+    <div class="result-sub" id="result-sub">—</div>
+    <div class="save-status saving" id="save-status">⏳ Guardando resultados...</div>
+    <div class="review-grid" id="review-grid"></div>
+    <button class="btn-restart" onclick="restartQuiz()">↺ Nuevo intento</button>
+    <div class="qr-section"><h3>📱 Comparte este examen</h3><p>Escanea el QR para acceder desde cualquier dispositivo</p><div id="qrcode"></div></div>`;
+  document.getElementById('quiz-container').style.display='none';
+  document.getElementById('name-screen').style.display='block';
+}
+</script>
+</body>
+</html>
