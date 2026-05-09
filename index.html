@@ -368,18 +368,6 @@ const bank = [
       "Porque automatiza completamente el proceso productivo sin intervención humana"
     ],
     explanation:"En la industria agroalimentaria el CEP es crítico porque los descontroles pueden resultar en productos inseguros para el consumo, con graves consecuencias para la salud pública y pérdidas económicas significativas."
-  },
-  {
-    unit:"Unidad II — Análisis estadístico",
-    text:"¿Qué es un intervalo de confianza y cómo se interpreta en el análisis de datos de proceso?",
-    correctText:"Es un rango de valores calculado a partir de los datos muestrales dentro del cual se espera que se encuentre el parámetro poblacional real con una probabilidad determinada",
-    options:[
-      "Es el rango de temperaturas aceptable dentro de una cámara de conservación de alimentos",
-      "Es el tiempo entre dos inspecciones consecutivas en la línea de producción",
-      "Es un rango de valores calculado a partir de los datos muestrales dentro del cual se espera que se encuentre el parámetro poblacional real con una probabilidad determinada",
-      "Es la diferencia entre el límite superior e inferior de especificación de un producto"
-    ],
-    explanation:"Un intervalo de confianza del 95%, por ejemplo, indica que si repitiéramos el muestreo muchas veces, el 95% de los intervalos calculados contendrían el verdadero parámetro poblacional."
   }
 ];
 
@@ -509,12 +497,16 @@ async function saveToSheet(){
     detalle:detalle
   });
   try{
-    await fetch(WEBAPP_URL+'?'+params.toString(),{method:'GET',mode:'no-cors'});
+    const urlFinal = WEBAPP_URL+'?'+params.toString();
+    console.log('URL enviada:', urlFinal);
+    await fetch(urlFinal,{method:'GET',mode:'no-cors'});
+    console.log('Fetch OK');
     status.className='save-status saved';
     status.textContent='✓ Resultados guardados en Google Sheets';
-  }catch(e){
+  }catch(err){
+    console.log('Error:', err.message);
     status.className='save-status error';
-    status.textContent='⚠ No se pudo guardar. Verifica la conexión.';
+    status.textContent='⚠ Error: '+err.message;
   }
 }
 
