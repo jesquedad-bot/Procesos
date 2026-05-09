@@ -497,7 +497,7 @@ function showResults(){
 async function saveToSheet(){
   const status=document.getElementById('save-status');
   const now=new Date();
-  const detalle=answers.map((a,i)=>a===questions[i].correct?'✓':'✗').join(' ');
+  const detalle=answers.map((a,i)=>a===questions[i].correct?'C':'X').join(' ');
   const params=new URLSearchParams({
     examen:'Control Estadístico de Procesos',
     nombre:studentName,
